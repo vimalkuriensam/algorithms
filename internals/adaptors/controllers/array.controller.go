@@ -39,7 +39,7 @@ func (ar *Adaptor) ThreeSums(nums []int) [][]int {
 	sort.Ints(nums)
 	var result [][]int
 	seen := make(map[string]struct{})
-	for i := 0; i < len(nums); i++ {
+	for i := 0; i < len(nums)-2; i++ {
 		if i > 0 && nums[i] == nums[i-1] {
 			continue
 		}
@@ -51,6 +51,7 @@ func (ar *Adaptor) ThreeSums(nums []int) [][]int {
 				key := fmt.Sprintf("%d%d%d", nums[i], nums[left], nums[right])
 				if _, exists := seen[key]; !exists {
 					result = append(result, triplet)
+					seen[key] = struct{}{}
 				}
 				left++
 				right--
