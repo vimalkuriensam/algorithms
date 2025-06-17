@@ -1,0 +1,8 @@
+1. Enque the source vertex, mark it as visited
+2. WHILE queue IS NOT EMPTY
+3.  Dequeu the node and visit it
+4.  For each neighbour N of node:
+5.      if N IS NOT visited:
+6.          Enqueu N
+7.          Mark N as visited
+8. Repeat step 2 until queue is empty
