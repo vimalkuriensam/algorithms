@@ -16,6 +16,12 @@ func dequeue(queue *[]*TreeNode) *TreeNode {
 	return node
 }
 
+func reverse_level_order(level_order [][]int) {
+	for i, j := 0, len(level_order)-1; i < j; i, j = i+1, j-1 {
+		level_order[i], level_order[j] = level_order[j], level_order[i]
+	}
+}
+
 func levelOrderBottom(root *TreeNode) [][]int {
 	var levelOrder [][]int
 	if root == nil {
@@ -24,9 +30,9 @@ func levelOrderBottom(root *TreeNode) [][]int {
 	queue := []*TreeNode{root}
 	for len(queue) > 0 {
 		queue_size := len(queue)
-		current_node := dequeue(&queue)
 		var inner_queue []int
 		for i := 0; i < queue_size; i++ {
+			current_node := dequeue(&queue)
 			if current_node != nil {
 				inner_queue = append(inner_queue, current_node.Val)
 				if current_node.Left != nil {
@@ -37,8 +43,9 @@ func levelOrderBottom(root *TreeNode) [][]int {
 				}
 			}
 		}
-		levelOrder = append([][]int{inner_queue}, levelOrder...)
+		levelOrder = append(levelOrder, inner_queue)
 	}
+	reverse_level_order(levelOrder)
 	return levelOrder
 }
 
