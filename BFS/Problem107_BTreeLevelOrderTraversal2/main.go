@@ -6,7 +6,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func enqueue(queue *[]*TreeNode, node *TreeNode) {
+func enqueu(queue *[]*TreeNode, node *TreeNode) {
 	(*queue) = append((*queue), node)
 }
 
@@ -16,34 +16,28 @@ func dequeue(queue *[]*TreeNode) *TreeNode {
 	return node
 }
 
-func zigzagLevelOrder(root *TreeNode) [][]int {
+func levelOrderBottom(root *TreeNode) [][]int {
 	var levelOrder [][]int
 	if root == nil {
 		return levelOrder
 	}
 	queue := []*TreeNode{root}
-	var zigzag bool
 	for len(queue) > 0 {
 		queue_size := len(queue)
 		current_node := dequeue(&queue)
-		var current_queue []int
+		var inner_queue []int
 		for i := 0; i < queue_size; i++ {
 			if current_node != nil {
+				inner_queue = append(inner_queue, current_node.Val)
 				if current_node.Left != nil {
-					enqueue(&queue, current_node.Left)
+					enqueu(&queue, current_node.Left)
 				}
 				if current_node.Right != nil {
-					enqueue(&queue, current_node.Right)
-				}
-				if !zigzag {
-					current_queue = append(current_queue, current_node.Val)
-				} else {
-					current_queue = append([]int{current_node.Val}, current_queue...)
+					enqueu(&queue, current_node.Right)
 				}
 			}
 		}
-		levelOrder = append(levelOrder, current_queue)
-		zigzag = !zigzag
+		levelOrder = append([][]int{inner_queue}, levelOrder...)
 	}
 	return levelOrder
 }
