@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+// AKA Dutch National Flag Problem
+
 func sortColors(nums []int) {
 	left, mid, right := 0, 0, len(nums)-1
 	for mid <= right {
